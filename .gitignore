@@ -7,3 +7,5 @@ yarn.lock
 __pycache__/
 .vscode/
 database.db
+cgi-bin/
+tmp/
