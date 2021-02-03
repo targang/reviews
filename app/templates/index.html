@@ -68,14 +68,19 @@
   <hr class="my-3" />
   <div class="flex justify-between items-center">
     <span class="text-gray-500">{{ (review.date|string).split()[0] }}</span>
-    {% if not review.answer %}
-    <button
-      class="answer-button py-2 px-3 font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300"
-      data-id="{{ review.id }}"
-    >
-      Ответить
-    </button>
-    {% endif %}
+    <div class="flex space-x-4 items-center">
+      <a href="/delete/{{ review.id }}">
+        <svg xmlns="http://www.w3.org/2000/svg" class="text-red-500 fill-current w-7 h-7" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+      </a>
+      {% if not review.answer %}
+      <button
+        class="answer-button py-2 px-3 font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300"
+        data-id="{{ review.id }}"
+      >
+        Ответить
+      </button>
+      {% endif %}
+    </div>
   </div>
   {% if review.answer %}
   <div class="flex space-x-2 -m-4 mt-4 p-4 rounded-xl bg-gray-50">

@@ -26,6 +26,16 @@ def answer():
     db.session.commit()
 
 
+@login_required
+@app.route('/delete/<int:id>')
+def delete(id):
+    review = Review.query.get(id)
+    db.session.delete(review)
+    db.session.commit()
+    return redirect(url_for('index'))
+
+
+@login_required
 @app.route("/create_review", methods=["GET", "POST"])
 def create_review():
     if request.method == 'GET':
