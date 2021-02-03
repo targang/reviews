@@ -1,0 +1,9 @@
+src/
+package.json
+node_modules/
+env/
+*.config.js
+yarn.lock
+__pycache__/
+.vscode/
+database.db

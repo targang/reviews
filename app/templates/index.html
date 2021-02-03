@@ -1,0 +1,178 @@
+{% extends 'base.html' %} {% block header %}
+<nav class="bg-gray-200 border w-full py-2">
+  <div class="container mx-auto flex items-end font-bold justify-end">
+    <div class="text-gray-500 text-xl mr-4">admin</div>
+    <div>
+      <a href="/logout" class="text-lg text-red-600">Выход</a>
+    </div>
+  </div>
+</nav>
+{% endblock %} {% block content %} {% for review in reviews %}
+<div class="bg-white my-4 p-4 rounded-xl border">
+  <div class="flex justify-between">
+    <div class="flex flex-col">
+      <h4 class="font-bold text-2xl">{{ review.username }}</h4>
+      <a class="mb-2 underline" href="{{ review.url }}">{{ review.url }}</a>
+    </div>
+    <div class="flex justify-center items-center">
+      <div class="flex items-center mt-2 mb-4">
+        <svg
+          class="mx-1 w-4 h-4 fill-current {% if review.stars >= 1 %}text-yellow-400{% else %}text-gray-300{% endif %}"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
+          />
+        </svg>
+        <svg
+          class="mx-1 w-4 h-4 fill-current {% if review.stars >= 2 %}text-yellow-400{% else %}text-gray-300{% endif %}"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
+          />
+        </svg>
+        <svg
+          class="mx-1 w-4 h-4 fill-current {% if review.stars >= 3 %}text-yellow-400{% else %}text-gray-300{% endif %}"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
+          />
+        </svg>
+        <svg
+          class="mx-1 w-4 h-4 fill-current {% if review.stars >= 4 %}text-yellow-400{% else %}text-gray-300{% endif %}"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
+          />
+        </svg>
+        <svg
+          class="mx-1 w-4 h-4 fill-current {% if review.stars >= 5 %}text-yellow-400{% else %}text-gray-300{% endif %}"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <p>{{ review.text }}</p>
+  <hr class="my-3" />
+  <div class="flex justify-between items-center">
+    <span class="text-gray-500">{{ review.date }}</span>
+    {% if not review.answer %}
+    <button
+      class="answer-button py-2 px-3 font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300"
+      data-id="{{ review.id }}"
+    >
+      Ответить
+    </button>
+    {% endif %}
+  </div>
+  {% if review.answer %}
+  <div class="flex space-x-2 -m-4 mt-4 p-4 rounded-xl bg-gray-50">
+    <img
+      src="https://www.e-gardenhk.com/assets/images/users/profile_placeholder.png"
+      class="w-10 h-10 border rounded-full"
+    />
+    <div class="mt-2">{{ review.answer }}</div>
+  </div>
+  {% endif %}
+</div>
+{% endfor %}
+
+<div id="modal" class="hidden fixed z-10 inset-0 bg-gray-500 bg-opacity-75">
+  <div class="flex items-center justify-center h-screen text-center">
+    <div
+      class="bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all mx-4 w-full sm:max-w-lg sm:w-full box-border"
+      role="dialog"
+    >
+      <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+        <p class="mb-2 text-xl font-bold">Ответить на отзыв</p>
+
+        <p
+          id="reviewContent"
+          class="bg-gray-100 rounded-md overflow-y-auto max-h-40 py-2 px-4 mb-3 text-sm"
+        ></p>
+
+        <textarea
+          name="answer"
+          placeholder="Ваш ответ"
+          class="w-full p-2 h-40 border rounded-md focus:outline-none focus:border-indigo-500"
+        ></textarea>
+        <input type="hidden" name="id" />
+      </div>
+      <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+        <button
+          type="button"
+          id="submitButton"
+          class="sm:ml-1 mt-3 w-full sm:w-auto py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-300"
+        >
+          Готово
+        </button>
+        <button
+          type="button"
+          id="cancelButton"
+          class="sm:mr-1 mt-3 w-full sm:w-auto py-2 px-4 border border-gray-300 text-sm font-medium rounded-md text-gray-600 bg-white hover:bg-gray-100 focus:outline-none focus:ring"
+        >
+          Отмена
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block scripts %}
+<script>
+  document.querySelectorAll('.answer-button').forEach((el) => {
+    el.addEventListener('click', () => {
+      let id = el.dataset.id;
+      let text = el.parentElement.parentElement.querySelector('p').textContent;
+
+      document.querySelector('#reviewContent').textContent = text;
+      document.querySelector('input[name="id"]').value = id;
+      document.querySelector('#modal').classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    });
+  });
+
+  function closeModal() {
+    document.querySelector('#reviewContent').textContent = '';
+    document.querySelector('input[name="id"]').value = '';
+    document.querySelector('textarea[name="answer"]').value = '';
+    document.querySelector('#modal').classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+  }
+
+  document.querySelector('#cancelButton').addEventListener('click', () => {
+    closeModal();
+  });
+
+  document.querySelector('#submitButton').addEventListener('click', () => {
+    let id = document.querySelector('input[name="id"]').value;
+    let answer = document.querySelector('textarea[name="answer"]').value;
+    let data = { id: id, answer: answer };
+    console.log(JSON.stringify(data));
+
+    fetch('/answer', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }).then((responce) => {
+      return responce.json();
+    });
+
+    location.reload();
+  });
+</script>
+{% endblock %}
