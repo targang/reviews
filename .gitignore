@@ -9,3 +9,4 @@ __pycache__/
 database.db
 cgi-bin/
 tmp/
+passwenger-wsgi.py
