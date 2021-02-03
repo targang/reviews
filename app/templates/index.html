@@ -67,7 +67,7 @@
   <p>{{ review.text }}</p>
   <hr class="my-3" />
   <div class="flex justify-between items-center">
-    <span class="text-gray-500">{{ review.date }}</span>
+    <span class="text-gray-500">{{ (review.date|string).split()[0] }}</span>
     {% if not review.answer %}
     <button
       class="answer-button py-2 px-3 font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300"

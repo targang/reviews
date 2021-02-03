@@ -1,3 +1,5 @@
+import datetime
+
 from flask import redirect, render_template, request, url_for
 from flask_login import login_required, login_user, logout_user
 
@@ -22,6 +24,21 @@ def answer():
     review = Review.query.get(int(id_))
     review.answer = answer
     db.session.commit()
+
+
+@app.route("/create_review", methods=["GET", "POST"])
+def create_review():
+    if request.method == 'GET':
+        return render_template('create_review.html')
+    username = request.form['username']
+    text = request.form['text']
+    stars = int(request.form['stars'])
+    date = datetime.date.fromisoformat(request.form['date'])
+    url = request.form['url']
+    review = Review(username=username, text=text, stars=stars, date=date, url=url)
+    db.session.add(review)
+    db.session.commit()
+    return redirect(url_for('index'))
 
 
 @app.route("/login", methods=["GET", "POST"])

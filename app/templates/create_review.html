@@ -1,0 +1,55 @@
+{% extends 'base.html' %} {% block content %}
+<form action="/create_review" class="max-w-sm w-100 mx-auto" method="POST">
+  <h2 class="text-3xl my-4 font-bold">Создать отзыв</h2>
+  <label>
+    <p class="mb-2">Имя</p>
+    <input
+      type="text"
+      name="username"
+      required
+      class="rounded-md block w-full px-3 py-2 border border-gray-300 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+    />
+  </label>
+  <label>
+    <p class="mb-2 mt-4">Текст</p>
+    <textarea
+      name="text"
+      required
+      class="rounded-md h-40 block w-full px-3 py-2 border border-gray-300 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+    ></textarea>
+  </label>
+  <label>
+    <p class="mt-4 mb-2">Оценка</p>
+    <input
+      type="number"
+      name="stars"
+      value="5"
+      min="1"
+      max="5"
+      required
+      class="rounded-md block w-full px-3 py-2 border border-gray-300 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+    />
+  </label>
+  <label>
+    <p class="mt-4 mb-2">Ссылка</p>
+    <input
+      type="text"
+      name="url"
+      required
+      class="rounded-md block w-full px-3 py-2 border border-gray-300 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+    />
+  </label>
+  <label>
+    <p class="mt-4 mb-2">Ссылка</p>
+    <input
+      type="date"
+      name="date"
+      required
+      class="rounded-md block w-full px-3 py-2 border border-gray-300 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+    />
+  </label>
+  <div class="w-full mt-4">
+    <button class="sm:ml-1 mt-3 w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-300">Создать</button>
+  </div>
+</form>
+{% endblock %}
