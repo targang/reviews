@@ -12,10 +12,11 @@ from app.models import Review, User
 def index():
     return render_template(
         "index.html",
-        reviews=Review.query.all(),
+        reviews=Review.query.order_by(Review.date).all(),
     )
 
 
+@login_required()
 @app.route("/answer", methods=["POST"])
 def answer():
     data = request.json
